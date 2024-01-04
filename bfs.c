@@ -1,26 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew_bonus.c                                  :+:      :+:    :+:   */
+/*   bfs.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hnaciri- <hnaciri-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/05 15:25:31 by hnaciri-          #+#    #+#             */
-/*   Updated: 2024/01/03 19:08:38 by hnaciri-         ###   ########.fr       */
+/*   Created: 2024/01/04 19:37:20 by hnaciri-          #+#    #+#             */
+/*   Updated: 2024/01/04 19:38:56 by hnaciri-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libft/libft.h"
 
-t_relations	*ft_lstnew(char *lRoom, char *rRoom)
-{
-	t_relations	*new;
+void	bfs() {
+	g_data.queue = createQueue(g_data.numberOfRooms);
 
-	new = malloc (sizeof(t_relations));
-	if (new == 0)
-		return (0);
-	new->lRoom = ft_strdup(lRoom);
-	new->rRoom = ft_strdup(rRoom);
-	new->next = 0;
-	return (new);
+	
 }

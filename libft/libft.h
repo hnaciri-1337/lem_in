@@ -6,7 +6,7 @@
 /*   By: hnaciri- <hnaciri-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 15:08:01 by hnaciri-          #+#    #+#             */
-/*   Updated: 2024/01/03 18:58:34 by hnaciri-         ###   ########.fr       */
+/*   Updated: 2024/01/04 19:06:38 by hnaciri-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,46 @@
 # include<stdlib.h>
 # include<unistd.h>
 
-typedef struct s_list
+
+typedef struct s_room
 {
-	char			*lRoom;
-	char			*rRoom;
-	struct s_list	*next;
-}	t_relations;
+	char				*name;
+	int					x;
+	int					y;
+	int					numberOfNeighbors;
+	int					visited;
+	struct s_room		*parent;
+	struct s_room		**neighbors;
+}	t_room;
+
+typedef struct s_relation
+{
+	char				*lRoom;
+	char				*rRoom;
+	struct s_relation	*next;
+}	t_relation;
+
+typedef struct s_queue
+{
+    t_room	**queue;
+    int		l;
+    int		r;
+	int		size;
+}	t_queue;
+
+typedef struct s_global
+{
+	int				numberOfAnts;
+	int				numberOfRooms;
+	int				numberOfRelations;
+	t_queue			*queue;
+	t_relation		*relations;
+	t_room			*graph;
+	t_room			*start;
+	t_room			*end;
+}	t_global;
+
+t_global	g_data;
 
 int			ft_isalpha(int _c);
 int			ft_isdigit(int _c);
@@ -40,7 +74,7 @@ int			ft_toupper(int c);
 int			ft_tolower(int c);
 char		*ft_strchr(const char *s, int c);
 char		*ft_strrchr(const char *s, int c);
-int			ft_strncmp(const char *s1, const char*s2, size_t n);
+int			ft_strcmp(const char *s1, const char*s2);
 void		*ft_memchr(const void *s, int c, size_t n);
 int			ft_memcmp(const void *s1, const void *s2, size_t n);
 char		*ft_strnstr(const char *haystack, const char *needle, size_t len);
@@ -58,8 +92,11 @@ void		ft_putchar_fd(char c, int fd);
 void		ft_putstr_fd(char *s, int fd);
 void		ft_putendl_fd(char *s, int fd);
 void		ft_putnbr_fd(int n, int fd);
-t_relations	*ft_lstnew(char *lRoom, char *rRoom);
-void		ft_lstadd_front(t_relations **lst, t_relations *new);
-void		ft_lstadd_back(t_relations **lst, t_relations *new);
-t_relations	*ft_lstmap(t_relations *lst, void *(*f)(void *), void (*del)(void *));
+void		parser(char *fileName);
+t_queue		*createQueue(int size);
+int			queueIsFull(t_queue *q);
+int			queueIsEmpty(t_queue *q);
+void		enqueue(t_queue	*q, t_room* room);
+t_room		*dequeue(t_queue* q);
+
 #endif

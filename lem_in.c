@@ -6,49 +6,25 @@
 /*   By: hnaciri- <hnaciri-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 17:25:27 by hnaciri-          #+#    #+#             */
-/*   Updated: 2024/01/03 19:06:41 by hnaciri-         ###   ########.fr       */
+/*   Updated: 2024/01/04 19:37:02 by hnaciri-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "libft/libft.h"
 
-t_relations	*relations = NULL;
+void	debug() {
+	// printf ("Start :%s have %d neighbors\n", g_data.start->name, g_data.start->numberOfNeighbors);
+	// for (int i = 0; i < g_data.start->numberOfNeighbors; i++)
+	// 	printf ("%s: [%d , %d]\n", g_data.start->neighbors[i]->name, g_data.start->neighbors[i]->x, g_data.start->neighbors[i]->y);
+	// printf ("\n\n");
+	// printf ("End :%s have %d neighbors\n", g_data.end->name, g_data.start->numberOfNeighbors);
+	// for (int i = 0; i < g_data.end->numberOfNeighbors; i++)
+	// 	printf ("%s: [%d , %d]\n", g_data.end->neighbors[i]->name, g_data.end->neighbors[i]->x, g_data.end->neighbors[i]->y);
+}
 
-int main() {
-	int     numberOfAnts;
-	char    line[100];
-
-	scanf("%d\n", &numberOfAnts);
-	while (fgets(line, sizeof(line), stdin)) {
-		char	roomName[100];
-		char	lRoom[100];
-		char	rRoom[100];
-		int		x;
-		int		y;
-
-		if (line[0] == '#') {
-			if (ft_strncmp(line, "##start", 7) == 0) {
-				fgets(line, sizeof(line), stdin);
-			}
-			else  if (ft_strncmp(line, "##end", 5) == 0) {
-				fgets(line, sizeof(line), stdin);
-			}
-		}
-		else if (sscanf(line, "%s %d %d", roomName, &x, &y) == 3) {
-			
-		}
-		else if (sscanf(line, "%[^-]-%s", lRoom, rRoom) == 2) {
-			ft_lstadd_front(&relations, ft_lstnew(lRoom, rRoom));
-		}
-		else
-			exit (printf ("Unknown string found: %s\n", line)) ;
-	}
-
-	printf ("Relations :\n");
-	
-	while(relations) {
-		printf ("%s <-----> %s\n", relations->lRoom, relations->rRoom);
-		relations = relations->next;
-	}
+int main(int ac, char **av) {
+	if (ac != 2)
+		return (printf ("usage :\n./lem_in inputfile\n"));
+	parser(av[1]);
+	bfs();
 }

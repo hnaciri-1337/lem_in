@@ -1,11 +1,13 @@
 #include "libft/libft.h"
 
 t_queue	*createQueue(int size) {
-	t_queue   *q = (t_queue*)malloc(sizeof(t_queue));
+	t_queue   *q = malloc(sizeof(t_queue));
+
+	q->queue = malloc(sizeof(t_room) * size);
 	q->l = 0;
 	q->r = -1;
 	q->size = size;
-	return q;
+	return (q);
 }
 
 int	queueIsFull(t_queue *q) {

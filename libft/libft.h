@@ -98,5 +98,6 @@ int			queueIsFull(t_queue *q);
 int			queueIsEmpty(t_queue *q);
 void		enqueue(t_queue	*q, t_room* room);
 t_room		*dequeue(t_queue* q);
+void		bfs();
 
 #endif

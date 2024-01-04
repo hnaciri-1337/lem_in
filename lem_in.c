@@ -28,6 +28,6 @@ int main(int ac, char **av) {
 	if (ac != 2)
 		return (printf ("usage :\n./lem_in inputfile\n"));
 	parser(av[1]);
-	debug();
-	// bfs();
+	// debug();
+	bfs();
 }

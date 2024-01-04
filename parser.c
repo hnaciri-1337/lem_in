@@ -156,4 +156,5 @@ void	parser(char *fileName) {
 	g_data.numberOfRelations = 0;
 	dataFill(fileName);
 	createGraph();
+	g_data.queue = createQueue(g_data.numberOfRooms);
 }

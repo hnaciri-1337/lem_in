@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-char static	*ft_copy(size_t i, size_t n, char *dest, char *source)
+static char	*ft_copy(size_t i, size_t n, char *dest, char *source)
 {
 	while (i < n)
 	{

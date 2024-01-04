@@ -17,7 +17,7 @@ int	queueIsEmpty(t_queue *q) {
 }
 
 void	enqueue(t_queue	*q, t_room* room) {
-	if (isFull(q))
+	if (queueIsFull(q))
 		return;
 	q->queue[++q->r] = room;
 }

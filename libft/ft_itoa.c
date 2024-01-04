@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-int static	ft_alloc(long int nbr)
+static int	ft_alloc(long int nbr)
 {
 	int	counter;
 
@@ -27,7 +27,7 @@ int static	ft_alloc(long int nbr)
 	return (counter);
 }
 
-char static	*ft_negative(long int nbr)
+static char	*ft_negative(long int nbr)
 {
 	char		*str;
 	int			i;

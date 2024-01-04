@@ -12,19 +12,22 @@
 
 #include "libft/libft.h"
 
+t_global	g_data;
+
 void	debug() {
-	// printf ("Start :%s have %d neighbors\n", g_data.start->name, g_data.start->numberOfNeighbors);
-	// for (int i = 0; i < g_data.start->numberOfNeighbors; i++)
-	// 	printf ("%s: [%d , %d]\n", g_data.start->neighbors[i]->name, g_data.start->neighbors[i]->x, g_data.start->neighbors[i]->y);
-	// printf ("\n\n");
-	// printf ("End :%s have %d neighbors\n", g_data.end->name, g_data.start->numberOfNeighbors);
-	// for (int i = 0; i < g_data.end->numberOfNeighbors; i++)
-	// 	printf ("%s: [%d , %d]\n", g_data.end->neighbors[i]->name, g_data.end->neighbors[i]->x, g_data.end->neighbors[i]->y);
+	printf ("Start :%s have %d neighbors\n", g_data.start->name, g_data.start->numberOfNeighbors);
+	for (int i = 0; i < g_data.start->numberOfNeighbors; i++)
+		printf ("%s: [%d , %d]\n", g_data.start->neighbors[i]->name, g_data.start->neighbors[i]->x, g_data.start->neighbors[i]->y);
+	printf ("\n\n");
+	printf ("End :%s have %d neighbors\n", g_data.end->name, g_data.start->numberOfNeighbors);
+	for (int i = 0; i < g_data.end->numberOfNeighbors; i++)
+		printf ("%s: [%d , %d]\n", g_data.end->neighbors[i]->name, g_data.end->neighbors[i]->x, g_data.end->neighbors[i]->y);
 }
 
 int main(int ac, char **av) {
 	if (ac != 2)
 		return (printf ("usage :\n./lem_in inputfile\n"));
 	parser(av[1]);
-	bfs();
+	debug();
+	// bfs();
 }

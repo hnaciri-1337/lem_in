@@ -56,7 +56,7 @@ typedef struct s_global
 	t_room			*end;
 }	t_global;
 
-t_global	g_data;
+extern t_global	g_data;
 
 int			ft_isalpha(int _c);
 int			ft_isdigit(int _c);

@@ -6,7 +6,7 @@
 /*   By: hnaciri- <hnaciri-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 15:48:10 by hnaciri-          #+#    #+#             */
-/*   Updated: 2024/01/05 18:26:37 by hnaciri-         ###   ########.fr       */
+/*   Updated: 2024/01/05 21:33:10 by hnaciri-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,5 +159,4 @@ void	parser(char *fileName) {
 	g_data.numberOfRelations = 0;
 	dataFill(fileName);
 	createGraph();
-	g_data.queue = createQueue(g_data.numberOfRooms);
 }

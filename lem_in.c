@@ -6,7 +6,7 @@
 /*   By: hnaciri- <hnaciri-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 17:25:27 by hnaciri-          #+#    #+#             */
-/*   Updated: 2024/01/05 18:28:23 by hnaciri-         ###   ########.fr       */
+/*   Updated: 2024/01/05 21:56:59 by hnaciri-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,10 @@ int main(int ac, char **av) {
 	if (ac != 2)
 		return (printf ("usage :\n./lem_in inputfile\n"));
 	parser(av[1]);
-	bfs();
+	initializePaths();
+	while (bfs()) {
+		for (int i = 0; i < g_data.numberOfRooms; i++)
+			g_data.graph[i].visited = g_data.graph[i].usedInPath;
+	}
 	debug();
 }

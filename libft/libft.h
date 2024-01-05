@@ -6,7 +6,7 @@
 /*   By: hnaciri- <hnaciri-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 15:08:01 by hnaciri-          #+#    #+#             */
-/*   Updated: 2024/01/05 18:22:33 by hnaciri-         ###   ########.fr       */
+/*   Updated: 2024/01/05 21:38:34 by hnaciri-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,6 @@ int			queueIsFull(t_queue *q);
 int			queueIsEmpty(t_queue *q);
 void		enqueue(t_queue	*q, t_room* room);
 t_room		*dequeue(t_queue* q);
-void		bfs();
-
+int			bfs();
+void		initializePaths();
 #endif

@@ -6,13 +6,13 @@
 /*   By: hnaciri- <hnaciri-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 19:37:20 by hnaciri-          #+#    #+#             */
-/*   Updated: 2024/01/05 18:30:11 by hnaciri-         ###   ########.fr       */
+/*   Updated: 2024/01/05 21:57:36 by hnaciri-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft/libft.h"
 
-void    initializePaths() {
+void	initializePaths() {
 	g_data.paths = malloc(sizeof(t_path) * g_data.start->numberOfNeighbors);
 	g_data.numberOfAvailablePaths = 0;
 }
@@ -23,17 +23,15 @@ void    getPath(t_room *room) {
 	
 	g_data.paths[g_data.numberOfAvailablePaths].length = 0;
 	while (tmp) {
-		if (tmp->usedInPath == 1)
-			return ;
 		g_data.paths[g_data.numberOfAvailablePaths].length++;
 		tmp = tmp->parent;
 	}
-	tmp = room;
-	i = g_data.paths[g_data.numberOfAvailablePaths].length;
 	g_data.paths[g_data.numberOfAvailablePaths].path = malloc(sizeof(t_room *) * (g_data.paths[g_data.numberOfAvailablePaths].length + 1));
-	while (tmp) {
-		if (tmp != g_data.start)
-			tmp->usedInPath = 1;
+	i = g_data.paths[g_data.numberOfAvailablePaths].length;
+	g_data.paths[g_data.numberOfAvailablePaths].path[--i] = g_data.end;
+	tmp = room;
+	while (tmp && tmp->parent) {
+		tmp->usedInPath = 1;
 		g_data.paths[g_data.numberOfAvailablePaths].path[--i] = tmp;
 		tmp = tmp->parent;
 	}
@@ -41,8 +39,8 @@ void    getPath(t_room *room) {
 	g_data.numberOfAvailablePaths++;
 }
 
-void	bfs() {
-	initializePaths();
+int	bfs() {
+	g_data.queue = createQueue(g_data.numberOfRooms);
 	enqueue(g_data.queue, g_data.start);
 	g_data.start->visited = 1;
 
@@ -52,8 +50,10 @@ void	bfs() {
 		for (int i = 0; i < currentRoom->numberOfNeighbors; i++) {
 			t_room *neighbor = currentRoom->neighbors[i];
 			if (neighbor == g_data.end) {
-				// printf ("Arrived: %s\n", currentRoom->name);
 				getPath(currentRoom);
+				free (g_data.queue->queue);
+				free (g_data.queue);
+				return 1;
 			}
 			else if (neighbor->visited == 0) {
 				neighbor->visited = 1;
@@ -62,4 +62,7 @@ void	bfs() {
 			}
 		}
 	}
+	free (g_data.queue->queue);
+	free (g_data.queue);
+	return 0;
 }

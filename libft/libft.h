@@ -6,7 +6,7 @@
 /*   By: hnaciri- <hnaciri-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 15:08:01 by hnaciri-          #+#    #+#             */
-/*   Updated: 2024/01/04 19:06:38 by hnaciri-         ###   ########.fr       */
+/*   Updated: 2024/01/05 16:39:32 by hnaciri-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,19 @@ typedef struct s_queue
 	int		size;
 }	t_queue;
 
+typedef struct s_path
+{
+    char	**path;
+	int		length;
+}	t_path;
+
 typedef struct s_global
 {
 	int				numberOfAnts;
 	int				numberOfRooms;
 	int				numberOfRelations;
+	int				numberOfAvailablePaths;
+	t_path			*paths;
 	t_queue			*queue;
 	t_relation		*relations;
 	t_room			*graph;

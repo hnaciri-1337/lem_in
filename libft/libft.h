@@ -6,7 +6,7 @@
 /*   By: hnaciri- <hnaciri-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 15:08:01 by hnaciri-          #+#    #+#             */
-/*   Updated: 2024/01/05 16:39:32 by hnaciri-         ###   ########.fr       */
+/*   Updated: 2024/01/05 18:22:33 by hnaciri-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct s_room
 	int					y;
 	int					numberOfNeighbors;
 	int					visited;
+	int					usedInPath;
 	struct s_room		*parent;
 	struct s_room		**neighbors;
 }	t_room;
@@ -46,7 +47,7 @@ typedef struct s_queue
 
 typedef struct s_path
 {
-    char	**path;
+    t_room	**path;
 	int		length;
 }	t_path;
 

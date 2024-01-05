@@ -6,7 +6,7 @@
 /*   By: hnaciri- <hnaciri-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 15:48:10 by hnaciri-          #+#    #+#             */
-/*   Updated: 2024/01/04 18:44:34 by hnaciri-         ###   ########.fr       */
+/*   Updated: 2024/01/05 18:26:37 by hnaciri-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void	dataFill(char *fileName) {
 				g_data.graph[g_data.numberOfRooms].neighbors = NULL;
 				g_data.graph[g_data.numberOfRooms].parent = NULL;
 				g_data.graph[g_data.numberOfRooms].visited = 0;
+				g_data.graph[g_data.numberOfRooms].usedInPath = 0;
 				g_data.start = &g_data.graph[g_data.numberOfRooms++]; 
 			}
 			else  if (ft_strcmp(line, "##end\n") == 0) {
@@ -85,6 +86,7 @@ void	dataFill(char *fileName) {
 				g_data.graph[g_data.numberOfRooms].neighbors = NULL;
 				g_data.graph[g_data.numberOfRooms].parent = NULL;
 				g_data.graph[g_data.numberOfRooms].visited = 0;
+				g_data.graph[g_data.numberOfRooms].usedInPath = 0;
 				g_data.end = &g_data.graph[g_data.numberOfRooms++];
 			}
 		}
@@ -95,6 +97,7 @@ void	dataFill(char *fileName) {
 			g_data.graph[g_data.numberOfRooms].numberOfNeighbors = 0;
 			g_data.graph[g_data.numberOfRooms].neighbors = NULL;
 			g_data.graph[g_data.numberOfRooms].parent = NULL;
+			g_data.graph[g_data.numberOfRooms].usedInPath = 0;
 			g_data.graph[g_data.numberOfRooms++].visited = 0;
 		}
 		else if (sscanf(line, "%[^-]-%s", lRoom, rRoom) == 2) {

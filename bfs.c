@@ -6,7 +6,7 @@
 /*   By: hnaciri- <hnaciri-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 19:37:20 by hnaciri-          #+#    #+#             */
-/*   Updated: 2024/01/05 16:39:32 by hnaciri-         ###   ########.fr       */
+/*   Updated: 2024/01/05 18:30:11 by hnaciri-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,18 @@ void    getPath(t_room *room) {
 	
 	g_data.paths[g_data.numberOfAvailablePaths].length = 0;
 	while (tmp) {
+		if (tmp->usedInPath == 1)
+			return ;
 		g_data.paths[g_data.numberOfAvailablePaths].length++;
 		tmp = tmp->parent;
 	}
 	tmp = room;
 	i = g_data.paths[g_data.numberOfAvailablePaths].length;
-	g_data.paths[g_data.numberOfAvailablePaths].path = malloc(sizeof(char *) * (g_data.paths[g_data.numberOfAvailablePaths].length + 1));
+	g_data.paths[g_data.numberOfAvailablePaths].path = malloc(sizeof(t_room *) * (g_data.paths[g_data.numberOfAvailablePaths].length + 1));
 	while (tmp) {
-		g_data.paths[g_data.numberOfAvailablePaths].path[--i] = ft_strdup(tmp->name);
+		if (tmp != g_data.start)
+			tmp->usedInPath = 1;
+		g_data.paths[g_data.numberOfAvailablePaths].path[--i] = tmp;
 		tmp = tmp->parent;
 	}
 	g_data.paths[g_data.numberOfAvailablePaths].path[g_data.paths[g_data.numberOfAvailablePaths].length] = NULL;

@@ -6,11 +6,11 @@
 /*   By: hnaciri- <hnaciri-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 13:42:03 by hnaciri-          #+#    #+#             */
-/*   Updated: 2024/01/06 17:21:18 by hnaciri-         ###   ########.fr       */
+/*   Updated: 2024/01/06 18:36:51 by hnaciri-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
+#include "../libft/libft.h"
 
 void	printResult() {
 	g_data.numberOfArrivedAnts = 0;
@@ -49,9 +49,9 @@ void	printResult() {
 			}
 		}
 
-		int	sum = 0;
+		sum = 0;
 		for (int i = 0; i < g_data.numberOfAvailablePaths && g_data.numberOfRemainAnts > 0; i++) {
-			if (i == 0 || (g_data.paths[i].length <= g_data.paths[i - 1].length + (g_data.numberOfRemainAnts + sum))) {
+			if (i == 0 || (g_data.paths[i].length <= (g_data.numberOfRemainAnts + sum))) {
 				g_data.numberOfRemainAnts--;
 				g_data.paths[i].path[0]->antId = g_data.numberOfAnts - g_data.numberOfRemainAnts;
 				printf ("L%d-%s ", g_data.paths[i].path[0]->antId, g_data.paths[i].path[0]->name);

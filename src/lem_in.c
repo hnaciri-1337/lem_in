@@ -6,11 +6,11 @@
 /*   By: hnaciri- <hnaciri-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 17:25:27 by hnaciri-          #+#    #+#             */
-/*   Updated: 2024/01/06 17:15:42 by hnaciri-         ###   ########.fr       */
+/*   Updated: 2024/01/06 18:36:51 by hnaciri-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
+#include "../libft/libft.h"
 
 t_global	g_data;
 

@@ -6,11 +6,11 @@
 /*   By: hnaciri- <hnaciri-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 15:48:10 by hnaciri-          #+#    #+#             */
-/*   Updated: 2024/01/05 21:33:10 by hnaciri-         ###   ########.fr       */
+/*   Updated: 2024/01/06 18:36:51 by hnaciri-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
+#include "../libft/libft.h"
 
 void	allocator(char *fileName) {
 	FILE	*file_in = fopen(fileName, "r");

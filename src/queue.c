@@ -1,4 +1,4 @@
-#include "libft/libft.h"
+#include "../libft/libft.h"
 
 t_queue	*createQueue(int size) {
 	t_queue   *q = malloc(sizeof(t_queue));

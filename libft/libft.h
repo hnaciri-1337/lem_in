@@ -6,7 +6,7 @@
 /*   By: hnaciri- <hnaciri-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 15:08:01 by hnaciri-          #+#    #+#             */
-/*   Updated: 2024/01/06 16:14:11 by hnaciri-         ###   ########.fr       */
+/*   Updated: 2024/01/06 19:42:19 by hnaciri-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct s_path
 {
     t_room	**path;
 	int		length;
+	int		antsInPath;
 }	t_path;
 
 typedef struct s_global

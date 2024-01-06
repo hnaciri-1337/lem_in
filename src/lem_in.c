@@ -6,7 +6,7 @@
 /*   By: hnaciri- <hnaciri-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 17:25:27 by hnaciri-          #+#    #+#             */
-/*   Updated: 2024/01/06 18:36:51 by hnaciri-         ###   ########.fr       */
+/*   Updated: 2024/01/06 20:06:31 by hnaciri-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,8 @@
 t_global	g_data;
 
 void	debug() {
-	// printf ("Start :%s have %d neighbors\n", g_data.start->name, g_data.start->numberOfNeighbors);
-	// for (int i = 0; i < g_data.start->numberOfNeighbors; i++)
-	// 	printf ("%s: [%d , %d]\n", g_data.start->neighbors[i]->name, g_data.start->neighbors[i]->x, g_data.start->neighbors[i]->y);
-	// printf ("\n\n");
-	// printf ("End :%s have %d neighbors\n", g_data.end->name, g_data.start->numberOfNeighbors);
-	// for (int i = 0; i < g_data.end->numberOfNeighbors; i++)
-	// 	printf ("%s: [%d , %d]\n", g_data.end->neighbors[i]->name, g_data.end->neighbors[i]->x, g_data.end->neighbors[i]->y);
-
 	for (int i = 0; i < g_data.numberOfAvailablePaths; i++) {
-		printf ("Length: %d\n", g_data.paths[i].length);
+		printf ("Length: %d | Assigned: %d | Sum: %d\n", g_data.paths[i].length, g_data.paths[i].antsInPath, g_data.paths[i].length + g_data.paths[i].antsInPath);
 		for (int j = 0; g_data.paths[i].path[j]; j++)
 			printf ("%s -> ", g_data.paths[i].path[j]->name);
 		printf ("\n");
@@ -40,6 +32,6 @@ int main(int ac, char **av) {
 		for (int i = 0; i < g_data.numberOfRooms; i++)
 			g_data.graph[i].visited = g_data.graph[i].usedInPath;
 	}
-	debug();
 	printResult();
+	// debug();
 }

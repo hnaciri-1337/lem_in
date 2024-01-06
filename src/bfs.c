@@ -6,7 +6,7 @@
 /*   By: hnaciri- <hnaciri-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 19:37:20 by hnaciri-          #+#    #+#             */
-/*   Updated: 2024/01/06 18:36:51 by hnaciri-         ###   ########.fr       */
+/*   Updated: 2024/01/06 19:47:52 by hnaciri-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void    getPath(t_room *room) {
 		g_data.paths[g_data.numberOfAvailablePaths].path[--i] = tmp;
 		tmp = tmp->parent;
 	}
+	g_data.paths[g_data.numberOfAvailablePaths].antsInPath = 0;
 	g_data.paths[g_data.numberOfAvailablePaths].path[g_data.paths[g_data.numberOfAvailablePaths].length] = NULL;
 	g_data.numberOfAvailablePaths++;
 }

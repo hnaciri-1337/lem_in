@@ -6,7 +6,7 @@
 /*   By: hnaciri- <hnaciri-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 15:08:01 by hnaciri-          #+#    #+#             */
-/*   Updated: 2024/01/05 21:38:34 by hnaciri-         ###   ########.fr       */
+/*   Updated: 2024/01/06 16:14:11 by hnaciri-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct s_room
 	int					numberOfNeighbors;
 	int					visited;
 	int					usedInPath;
+	int					antId;
 	struct s_room		*parent;
 	struct s_room		**neighbors;
 }	t_room;
@@ -54,6 +55,8 @@ typedef struct s_path
 typedef struct s_global
 {
 	int				numberOfAnts;
+	int				numberOfRemainAnts;
+	int				numberOfArrivedAnts;
 	int				numberOfRooms;
 	int				numberOfRelations;
 	int				numberOfAvailablePaths;
@@ -109,4 +112,5 @@ void		enqueue(t_queue	*q, t_room* room);
 t_room		*dequeue(t_queue* q);
 int			bfs();
 void		initializePaths();
+void		printResult();
 #endif

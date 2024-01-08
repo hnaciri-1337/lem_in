@@ -6,143 +6,183 @@
 /*   By: hnaciri- <hnaciri-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 15:48:10 by hnaciri-          #+#    #+#             */
-/*   Updated: 2024/01/06 18:36:51 by hnaciri-         ###   ########.fr       */
+/*   Updated: 2024/01/08 01:07:45 by hnaciri-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/libft.h"
+#include "../includes/lem_in.h"
+
+void	readNumberOfAnts(char *line) {
+	g_data.numberOfAnts = ft_atoi(line);
+}
+
+void	readRoom(char *line) {
+	char	*tmp;
+
+	while (line && ft_isspace(*line))
+		line++;
+	tmp = line;
+	while (*line && !ft_isspace(*line))
+		line++;
+	g_data.graph[g_data.numberOfRooms].name = ft_substr(tmp, 0, line - tmp);
+	while (ft_isspace(*line))
+		line++;
+	g_data.graph[g_data.numberOfRooms].x = ft_atoi(line);
+	while (ft_isdigit(*line))
+		line++;
+	while (ft_isspace(*line))
+		line++;
+	g_data.graph[g_data.numberOfRooms].y = ft_atoi(line);
+
+	g_data.graph[g_data.numberOfRooms].numberOfNeighbors = 0;
+	g_data.graph[g_data.numberOfRooms].neighbors = NULL;
+	g_data.graph[g_data.numberOfRooms].parent = NULL;
+	g_data.graph[g_data.numberOfRooms].visited = 0;
+	g_data.graph[g_data.numberOfRooms].usedInPath = 0;
+	g_data.numberOfRooms++;
+}
+
+void	readRelation(char *line) {
+	char	**rooms = ft_split(line, '-');
+
+	g_data.relations[g_data.numberOfRelations].lRoom = rooms[0];
+	g_data.relations[g_data.numberOfRelations].rRoom = rooms[1];
+	g_data.numberOfRelations++;
+
+	free (rooms);
+}
+
+int		checkIfNumber(char *line) {
+	while (line && ft_isspace(*line))
+		line++;
+	if (!line || !(*line))
+		return 0;
+
+	while (*line && ft_isdigit(*line))
+		line++;
+	return (!(*line));
+}
+
+int		checkIfRoom(char *line) {
+	while (line && ft_isspace(*line))
+		line++;
+	if (!line || !(*line))
+		return 0;
+
+	while (*line && !ft_isspace(*line))
+		line++;
+	if (!(*line))
+		return 0;
+	
+	if (ft_isspace(*line))
+		while (ft_isspace(*line))
+			line++;
+	else
+		return 0;
+	if (!(*line))
+		return 0;
+
+	if (ft_isdigit(*line))
+		while (ft_isdigit(*line))
+			line++;
+	else
+		return 0;
+	if (!(*line))
+		return 0;
+
+	if (ft_isspace(*line))
+		while (ft_isspace(*line))
+			line++;
+	else
+		return 0;
+	if (!(*line))
+		return 0;
+
+	if (ft_isdigit(*line))
+		while (ft_isdigit(*line))
+			line++;
+	else
+		return 0;
+
+	return (!(*line));
+}
+
+int		checkIfRelation(char *line) {
+	int	count = 0;
+
+	for (int i = 0; line && line[i]; i++) {
+		count += line[i] == '-';
+		if (!ft_isalnum(line[i]) && line[i] != '_' && line[i] != '-')
+			return 0;
+	}
+	return (count == 1);
+}
 
 void	allocator(char *fileName) {
-	FILE	*file_in = fopen(fileName, "r");
-	char    line[100];
+	int		fd = open(fileName, O_RDONLY);
+	char    *line;
 
-	fscanf(file_in, "%d\n", &g_data.numberOfAnts);
-
-	while (fgets(line, sizeof(line), file_in)) {
-		char	roomName[100];
-		char	lRoom[100];
-		char	rRoom[100];
-		int		x;
-		int		y;
-
+	line = get_next_line(fd);
+	if (!checkIfNumber(line))
+		fatal_error("Number of ants should be at the first line !");
+	readNumberOfAnts(line);
+	free(line);
+	while ((line = get_next_line(fd))) {
 		if (line[0] == '#') {
-			if (ft_strcmp(line, "##start\n") == 0) {
-				fgets(line, sizeof(line), file_in);
-				g_data.numberOfRooms++;
-			}
-			else  if (ft_strcmp(line, "##end\n") == 0) {
-				fgets(line, sizeof(line), file_in);
+			if (ft_strcmp(line, "##start") == 0 || ft_strcmp(line, "##end") == 0) {
+				free (line);
+				line = get_next_line(fd);
+				if (!checkIfRoom(line))
+					fatal_error("Unknown line found !");
 				g_data.numberOfRooms++;
 			}
 		}
-		else if (sscanf(line, "%s %d %d", roomName, &x, &y) == 3)
+		else if (checkIfRoom(line))
 			g_data.numberOfRooms++;
-		else if (sscanf(line, "%[^-]-%s", lRoom, rRoom) == 2)
+		else if (checkIfRelation(line))
 			g_data.numberOfRelations++;
 		else
-			exit (printf ("Unknown string found: %s\n", line)) ;
+			fatal_error("Unknown line found !");
+		free (line);
 	}
-	fclose(file_in);
+	close(fd);
 	g_data.graph = malloc(sizeof(t_room) * g_data.numberOfRooms);
 	g_data.relations = malloc(sizeof(t_relation) * g_data.numberOfRelations + 1);
 }
 
 void	dataFill(char *fileName) {
-	FILE	*file_in = fopen(fileName, "r");
-	char    line[100];
+	int		fd = open(fileName, 0);
+	char    *line;
 
-	fscanf(file_in, "%d\n", &g_data.numberOfAnts);
-
-	while (fgets(line, sizeof(line), file_in)) {
-		char	roomName[100];
-		char	lRoom[100];
-		char	rRoom[100];
-		int		x;
-		int		y;
-
+	line = get_next_line(fd);
+	if (!checkIfNumber(line))
+		fatal_error("Number of ants should be at the first line !");
+	readNumberOfAnts(line);
+	free(line);
+	while ((line = get_next_line(fd))) {
 		if (line[0] == '#') {
-			if (ft_strcmp(line, "##start\n") == 0) {
-				fgets(line, sizeof(line), file_in);
-				if (sscanf(line, "%s %d %d", roomName, &x, &y) != 3)
-					exit (printf ("Unknown line found: %s\n", line));
-				g_data.graph[g_data.numberOfRooms].name = ft_strdup(roomName);
-				g_data.graph[g_data.numberOfRooms].x = x;
-				g_data.graph[g_data.numberOfRooms].y = y;
-				g_data.graph[g_data.numberOfRooms].numberOfNeighbors = 0;
-				g_data.graph[g_data.numberOfRooms].neighbors = NULL;
-				g_data.graph[g_data.numberOfRooms].parent = NULL;
-				g_data.graph[g_data.numberOfRooms].visited = 0;
-				g_data.graph[g_data.numberOfRooms].usedInPath = 0;
-				g_data.start = &g_data.graph[g_data.numberOfRooms++]; 
+			if (ft_strcmp(line, "##start") == 0) {
+				free (line);
+				line = get_next_line(fd);
+				readRoom(line);
+				g_data.start = &g_data.graph[g_data.numberOfRooms - 1];
 			}
-			else  if (ft_strcmp(line, "##end\n") == 0) {
-				fgets(line, sizeof(line), file_in);
-				if (sscanf(line, "%s %d %d", roomName, &x, &y) != 3)
-					exit (printf ("Unknown line found: %s\n", line));
-				g_data.graph[g_data.numberOfRooms].name = ft_strdup(roomName);
-				g_data.graph[g_data.numberOfRooms].x = x;
-				g_data.graph[g_data.numberOfRooms].y = y;
-				g_data.graph[g_data.numberOfRooms].numberOfNeighbors = 0;
-				g_data.graph[g_data.numberOfRooms].neighbors = NULL;
-				g_data.graph[g_data.numberOfRooms].parent = NULL;
-				g_data.graph[g_data.numberOfRooms].visited = 0;
-				g_data.graph[g_data.numberOfRooms].usedInPath = 0;
-				g_data.end = &g_data.graph[g_data.numberOfRooms++];
+			else  if (ft_strcmp(line, "##end") == 0) {
+				free (line);
+				line = get_next_line(fd);
+				readRoom(line);
+				g_data.end = &g_data.graph[g_data.numberOfRooms - 1];
 			}
 		}
-		else if (sscanf(line, "%s %d %d", roomName, &x, &y) == 3) {
-			g_data.graph[g_data.numberOfRooms].name = ft_strdup(roomName);
-			g_data.graph[g_data.numberOfRooms].x = x;
-			g_data.graph[g_data.numberOfRooms].y = y;
-			g_data.graph[g_data.numberOfRooms].numberOfNeighbors = 0;
-			g_data.graph[g_data.numberOfRooms].neighbors = NULL;
-			g_data.graph[g_data.numberOfRooms].parent = NULL;
-			g_data.graph[g_data.numberOfRooms].usedInPath = 0;
-			g_data.graph[g_data.numberOfRooms++].visited = 0;
-		}
-		else if (sscanf(line, "%[^-]-%s", lRoom, rRoom) == 2) {
-			g_data.relations[g_data.numberOfRelations].lRoom = ft_strdup(lRoom);
-			g_data.relations[g_data.numberOfRelations].rRoom = ft_strdup(rRoom);
-			g_data.relations[g_data.numberOfRelations++].next = NULL;
-		}
+		else if (checkIfRoom(line))
+			readRoom(line);
+		else if (checkIfRelation(line))
+			readRelation(line);
 		else
-			exit (printf ("Unknown line found: %s\n", line));
+			fatal_error("Unknown line found !");
+		free (line);
 	}
-	fclose(file_in);
-}
-
-t_room	*getRoomByName(char *name) {
-	for (int i = 0; i < g_data.numberOfRooms; i++) {
-		if (ft_strcmp(name, g_data.graph[i].name) == 0)
-			return (&g_data.graph[i]);
-	}
-	return (NULL);
-}
-
-void	countRoomRelations(t_room *room) {
-	for (int i = 0; i < g_data.numberOfRelations; i++) {
-		room->numberOfNeighbors += (ft_strcmp(room->name, g_data.relations[i].lRoom) == 0);
-		room->numberOfNeighbors += (ft_strcmp(room->name, g_data.relations[i].rRoom) == 0);
-	}
-}
-
-void	createGraph() {
-	t_room	*firstRoom;
-	t_room	*secondRoom;
-
-	for (int i = 0; i < g_data.numberOfRooms; i++) {
-		countRoomRelations(&g_data.graph[i]);
-		g_data.graph[i].neighbors = malloc (sizeof(t_room *) * g_data.graph[i].numberOfNeighbors);
-		g_data.graph[i].numberOfNeighbors = 0;
-	}
-	for (int i = 0; i < g_data.numberOfRelations; i++) {
-		if (!(firstRoom = getRoomByName(g_data.relations[i].lRoom)))
-			exit (printf("fatal error\n"));
-		if (!(secondRoom = getRoomByName(g_data.relations[i].rRoom)))
-			exit (printf("fatal error\n"));
-		firstRoom->neighbors[firstRoom->numberOfNeighbors++] = secondRoom;
-		secondRoom->neighbors[secondRoom->numberOfNeighbors++] = firstRoom;
-	}
+	close(fd);
 }
 
 void	parser(char *fileName) {
@@ -158,5 +198,7 @@ void	parser(char *fileName) {
 	g_data.numberOfRooms = 0;
 	g_data.numberOfRelations = 0;
 	dataFill(fileName);
+	if (!g_data.numberOfRooms || !g_data.numberOfRelations || !g_data.start || !g_data.end)
+		fatal_error("Enter all required parametres\nNumber of ants\nrooms\nrelations");
 	createGraph();
 }

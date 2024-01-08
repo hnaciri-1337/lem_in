@@ -6,11 +6,11 @@
 /*   By: hnaciri- <hnaciri-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 13:42:03 by hnaciri-          #+#    #+#             */
-/*   Updated: 2024/01/06 20:06:28 by hnaciri-         ###   ########.fr       */
+/*   Updated: 2024/01/08 01:06:50 by hnaciri-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/libft.h"
+#include "../includes/lem_in.h"
 
 void	assignAntsToPath() {
 
@@ -32,22 +32,24 @@ void	printResult() {
 			g_data.paths[i].path[j]->antId = -1;
 
 	assignAntsToPath();
-	// return ;	
 	g_data.numberOfRemainAnts = g_data.numberOfAnts;
 	for (int i = 0; i < g_data.numberOfAvailablePaths; i++) {
 		if (g_data.paths[i].antsInPath) {
 			g_data.paths[i].antsInPath--;
 			g_data.numberOfRemainAnts--;
 			g_data.paths[i].path[0]->antId = g_data.numberOfAnts - g_data.numberOfRemainAnts;
-			printf ("L%d-%s ", g_data.paths[i].path[0]->antId, g_data.paths[i].path[0]->name);
+			ft_putchar_fd('L', 1);
+			ft_putnbr_fd(g_data.paths[i].path[0]->antId, 1);
+			ft_putchar_fd('-', 1);
+			ft_putstr_fd(g_data.paths[i].path[0]->name, 1);
+			ft_putchar_fd(' ', 1);
 		}
 		else {
 			g_data.numberOfAvailablePaths = i + 1;
 			break ;
 		}
 	}
-	
-	printf ("\n");
+	ft_putchar_fd('\n', 1);
 
 	while (g_data.numberOfArrivedAnts < g_data.numberOfAnts) {
 		for (int i = 0; i < g_data.numberOfAvailablePaths; i++) {
@@ -55,7 +57,11 @@ void	printResult() {
 				if (g_data.paths[i].path[j - 1]->antId != -1) {
 					g_data.paths[i].path[j]->antId = g_data.paths[i].path[j - 1]->antId;
 					g_data.paths[i].path[j - 1]->antId = -1;
-					printf ("L%d-%s ", g_data.paths[i].path[j]->antId, g_data.paths[i].path[j]->name);
+					ft_putchar_fd('L', 1);
+					ft_putnbr_fd(g_data.paths[i].path[j]->antId, 1);
+					ft_putchar_fd('-', 1);
+					ft_putstr_fd(g_data.paths[i].path[j]->name, 1);
+					ft_putchar_fd(' ', 1);
 					if (g_data.paths[i].path[j] == g_data.end)
 						g_data.numberOfArrivedAnts++;
 				}
@@ -67,11 +73,15 @@ void	printResult() {
 				g_data.paths[i].antsInPath--;
 				g_data.numberOfRemainAnts--;
 				g_data.paths[i].path[0]->antId = g_data.numberOfAnts - g_data.numberOfRemainAnts;
-				printf ("L%d-%s ", g_data.paths[i].path[0]->antId, g_data.paths[i].path[0]->name);
+				ft_putchar_fd('L', 1);
+				ft_putnbr_fd(g_data.paths[i].path[0]->antId, 1);
+				ft_putchar_fd('-', 1);
+				ft_putstr_fd(g_data.paths[i].path[0]->name, 1);
+				ft_putchar_fd(' ', 1);
 			}
 			else
 				break ;
 		}
-		printf ("\n");
+		ft_putchar_fd ('\n', 1);
 	}
 }

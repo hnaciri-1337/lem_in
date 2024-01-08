@@ -6,11 +6,11 @@
 /*   By: hnaciri- <hnaciri-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 19:37:20 by hnaciri-          #+#    #+#             */
-/*   Updated: 2024/01/06 19:47:52 by hnaciri-         ###   ########.fr       */
+/*   Updated: 2024/01/08 01:06:50 by hnaciri-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/libft.h"
+#include "../includes/lem_in.h"
 
 void	initializePaths() {
 	g_data.paths = malloc(sizeof(t_path) * g_data.start->numberOfNeighbors);

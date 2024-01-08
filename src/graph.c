@@ -6,7 +6,7 @@
 /*   By: hnaciri- <hnaciri-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 01:01:17 by hnaciri-          #+#    #+#             */
-/*   Updated: 2024/01/08 01:06:50 by hnaciri-         ###   ########.fr       */
+/*   Updated: 2024/01/08 15:48:39 by hnaciri-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,14 @@ void	createGraph() {
 		g_data.graph[i].numberOfNeighbors = 0;
 	}
 	for (int i = 0; i < g_data.numberOfRelations; i++) {
-		if (!(firstRoom = getRoomByName(g_data.relations[i].lRoom)))
-			fatal_error("Error in the program try again later");
-		if (!(secondRoom = getRoomByName(g_data.relations[i].rRoom)))
-			fatal_error("Error in the program try again later");
+		if (!(firstRoom = getRoomByName(g_data.relations[i].lRoom))) {
+			ft_putendl_fd("Error: Room name is relation but doesnt exist in Rooms", 2);
+			fatal_error(g_data.relations[i].lRoom);
+		}
+		if (!(secondRoom = getRoomByName(g_data.relations[i].rRoom))) {
+			ft_putendl_fd("Error: Room name is relation but doesnt exist in Rooms", 2);
+			fatal_error(g_data.relations[i].rRoom);
+		}
 		firstRoom->neighbors[firstRoom->numberOfNeighbors++] = secondRoom;
 		secondRoom->neighbors[secondRoom->numberOfNeighbors++] = firstRoom;
 	}

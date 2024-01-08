@@ -6,7 +6,7 @@
 /*   By: hnaciri- <hnaciri-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 15:48:10 by hnaciri-          #+#    #+#             */
-/*   Updated: 2024/01/08 01:07:45 by hnaciri-         ###   ########.fr       */
+/*   Updated: 2024/01/08 15:51:55 by hnaciri-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,13 +109,18 @@ int		checkIfRoom(char *line) {
 
 int		checkIfRelation(char *line) {
 	int	count = 0;
+	int	position = -1;
+	int	i = 0;
 
-	for (int i = 0; line && line[i]; i++) {
-		count += line[i] == '-';
+	for (i = 0; line && line[i]; i++) {
+		if (line[i] == '-') {
+			count++;
+			position = i;
+		}
 		if (!ft_isalnum(line[i]) && line[i] != '_' && line[i] != '-')
 			return 0;
 	}
-	return (count == 1);
+	return (count == 1 && position != 0 && position != i - 1);
 }
 
 void	allocator(char *fileName) {
@@ -199,6 +204,5 @@ void	parser(char *fileName) {
 	g_data.numberOfRelations = 0;
 	dataFill(fileName);
 	if (!g_data.numberOfRooms || !g_data.numberOfRelations || !g_data.start || !g_data.end)
-		fatal_error("Enter all required parametres\nNumber of ants\nrooms\nrelations");
-	createGraph();
+		fatal_error("File should containe all the required parametres\nNumber of ants\nrooms\nrelations");
 }

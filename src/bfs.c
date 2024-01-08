@@ -6,7 +6,7 @@
 /*   By: hnaciri- <hnaciri-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 19:37:20 by hnaciri-          #+#    #+#             */
-/*   Updated: 2024/01/08 01:06:50 by hnaciri-         ###   ########.fr       */
+/*   Updated: 2024/01/08 13:50:05 by hnaciri-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	bfs() {
 
 		for (int i = 0; i < currentRoom->numberOfNeighbors; i++) {
 			t_room *neighbor = currentRoom->neighbors[i];
-			if (neighbor == g_data.end) {
+			if (neighbor == g_data.end && (currentRoom != g_data.start || g_data.numberOfAvailablePaths == 0)) {
 				getPath(currentRoom);
 				free (g_data.queue->queue);
 				free (g_data.queue);

@@ -6,7 +6,7 @@
 /*   By: hnaciri- <hnaciri-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 13:42:03 by hnaciri-          #+#    #+#             */
-/*   Updated: 2024/01/09 17:19:39 by hnaciri-         ###   ########.fr       */
+/*   Updated: 2024/01/09 18:33:27 by hnaciri-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,24 +32,6 @@ void	printResult() {
 			g_data.paths[i].path[j]->antId = -1;
 
 	assignAntsToPath();
-	g_data.numberOfRemainAnts = g_data.numberOfAnts;
-	for (int i = 0; i < g_data.numberOfAvailablePaths; i++) {
-		if (g_data.paths[i].antsInPath) {
-			g_data.paths[i].antsInPath--;
-			g_data.numberOfRemainAnts--;
-			g_data.paths[i].path[0]->antId = g_data.numberOfAnts - g_data.numberOfRemainAnts;
-			ft_putchar_fd('L', 1);
-			ft_putnbr_fd(g_data.paths[i].path[0]->antId, 1);
-			ft_putchar_fd('-', 1);
-			ft_putstr_fd(g_data.paths[i].path[0]->name, 1);
-			ft_putchar_fd(' ', 1);
-		}
-		else {
-			g_data.numberOfAvailablePaths = i + 1;
-			break ;
-		}
-	}
-	ft_putchar_fd('\n', 1);
 
 	while (g_data.numberOfArrivedAnts < g_data.numberOfAnts) {
 		for (int i = 0; i < g_data.numberOfAvailablePaths; i++) {
@@ -57,13 +39,13 @@ void	printResult() {
 				if (g_data.paths[i].path[j - 1]->antId != -1) {
 					g_data.paths[i].path[j]->antId = g_data.paths[i].path[j - 1]->antId;
 					g_data.paths[i].path[j - 1]->antId = -1;
+					if (g_data.paths[i].path[j] == g_data.end)
+						g_data.numberOfArrivedAnts++;
 					ft_putchar_fd('L', 1);
 					ft_putnbr_fd(g_data.paths[i].path[j]->antId, 1);
 					ft_putchar_fd('-', 1);
 					ft_putstr_fd(g_data.paths[i].path[j]->name, 1);
 					ft_putchar_fd(' ', 1);
-					if (g_data.paths[i].path[j] == g_data.end)
-						g_data.numberOfArrivedAnts++;
 				}
 			}
 		}

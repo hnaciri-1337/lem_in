@@ -1,0 +1,5 @@
+srcs/*.o
+tools/*.o
+lem-in
+input.txt
+output.txt

@@ -20,7 +20,7 @@ cd lem_in
 make && make clean
 ```
 
-###### Run the project and pass input file name as params
+###### Run the project and pass input file name as argument
 
 ```bash
 ./lem-in inputs/flow-ten.txt
